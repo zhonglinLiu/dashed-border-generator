@@ -11,197 +11,255 @@
 -->
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CSS Trick – Customized Dashed or Dotted Border</title>
-    <meta name="description" content="A simple CSS generator for custom dashed or dotted border. Has ability to increase space between dots, change dash length or distance between strokes. Based on a trick with SVG-image inside 'background-image' property.">
-    <meta name="Keywords" content="CSS, border, stroke, dashed, dotted, spacing, generator, svg, distance, trick, hack, online">
-    <meta name="author" content="Artem Kovalchuk">
+    <title>CSS 技巧 – 自定义虚线或者虚线边框</title>
+    <meta name="description"
+        content="用于自定义虚线或虚线边框的简单CSS生成器。能够增加点之间的间距，更改划线长度或笔划之间的距离。基于在“背景图像”属性中使用SVG图像的技巧。">
+    <meta name="Keywords"
+        content="CSS, border, stroke, dashed, dotted, spacing, generator, svg, distance, trick, hack, online">
+    <meta name="author" content="zhonglin.liu">
     <link rel="icon" type="image/ico" href="favicon.ico">
     <!-- Open Graph -->
-    <meta property="og:title" content="Dashed Border Generator by @kovart">
-    <meta property="og:description" content="With this tool you can simply increase space between dots, change dash length or distance between strokes.">
+    <meta property="og:title" content="虚线边框生成器">
+    <meta property="og:description"
+        content="使用此工具，您可以简单地增加点之间的间距，更改划线长度或虚线之间的距离。">
     <meta property="og:url" content="https://kovart.github.io/dashed-border-generator/">
     <meta property="og:image" content="https://kovart.github.io/dashed-border-generator/intro.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134982632-1"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134982632-1"></script> -->
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'UA-134982632-1');
     </script>
 </head>
+
 <body>
-<div id="app">
-    <div class="container">
-        <div class="text-center py-4">
-            <h1 style="margin-bottom: 1rem">Customize your CSS Border 🚀</h1>
-            <h2 class="text-center lead">
-                With this tool you can simply increase space between dots, change dash length or distance between strokes.
-            </h2>
-        </div>
-        <div class="row">
-            <!-- Visualization -->
-            <div class="col-md-6">
-                <div class="visualization block">
-                    <div class="visualization__color-list">
-                        <div class="visualization__color"
-                             @click="openColorPicker('border')"
-                             v-bind:class="{'is-active': colorPicker.target == 'border'}"
-                             v-bind:style="{ background: currentStyle.borderColor }"></div>
-                        <div class="visualization__color"
-                             @click="openColorPicker('background')"
-                             v-bind:class="{'is-active': colorPicker.target == 'background'}"
-                             v-bind:style="{ background: currentStyle.backgroundColor }"
-                        ></div>
-                    </div>
-                    <div v-if="colorPicker.isOpened" class="visualization__color-picker">
-                        <div @click="closeColorPicker" class="filler"></div>
-                        <chrome-picker ref="colorPicker" @input="updateColor" v-model="colorPicker.borderColor" />
-                    </div>
-                    <div v-bind:style="blockStyle" class="visualization__rectangle"></div>
-                    <div class="visualization__style-list">
-                        <button class="visualization__style"
-                                v-for="style in styles"
-                                @click="setStyle(style)"
+    <div id="app">
+        <div class="container">
+            <div class="text-center py-4">
+                <h1 style="margin-bottom: 1rem">自定义你的CSS边框 🚀</h1>
+                <h2 class="text-center lead">
+                    使用此工具，您可以简单地增加点之间的间距，更改划线长度或虚线之间的距离。
+                </h2>
+            </div>
+            <div class="row">
+                <!-- Visualization -->
+                <div class="col-md-6">
+                    <div class="visualization block">
+                        <div class="visualization__color-list">
+                            <div class="visualization__color" @click="openColorPicker('border')"
+                                v-bind:class="{'is-active': colorPicker.target == 'border'}"
+                                v-bind:style="{ background: currentStyle.borderColor }"></div>
+                            <div class="visualization__color" @click="openColorPicker('background')"
+                                v-bind:class="{'is-active': colorPicker.target == 'background'}"
+                                v-bind:style="{ background: currentStyle.backgroundColor }"></div>
+                        </div>
+                        <div v-if="colorPicker.isOpened" class="visualization__color-picker">
+                            <div @click="closeColorPicker" class="filler"></div>
+                            <chrome-picker ref="colorPicker" @input="updateColor" v-model="colorPicker.borderColor" />
+                        </div>
+                        <div v-bind:style="blockStyle" class="visualization__rectangle"></div>
+                        <div class="visualization__style-list">
+                            <button class="visualization__style" v-for="style in styles" @click="setStyle(style)"
                                 v-bind:style="generateBorderStyle(style)">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Settings -->
+                <div class="col-md-6">
+                    <div class="block">
+                        <!-- Block size -->
+                        <div class="form-row">
+                            <div class="col-6">
+                                <label for="input-block-width">宽:</label>
+                                <input v-model="block.width" class="form-control" type="text" id="input-block-width">
+                            </div>
+                            <div class="col-6">
+                                <label for="input-block-height">高:</label>
+                                <input v-model="block.height" class="form-control" type="text" id="input-block-height">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+
+                                <small class="form-text text-muted">
+                                    Note: It doesn't impact on generated style.
+                                </small>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Stroke width -->
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="input-stroke-width">边框宽度: {{ currentStyle.width }}</label>
+                                <input v-model="currentStyle.width" step="1" min="1" max="25" class="custom-range"
+                                    id="input-stroke-width" type="range">
+                            </div>
+                        </div>
+                        <div class="form-row ">
+                            <!-- Dash Array -->
+                            <div class="col-6">
+                                <div class="form-inline"></div>
+                                <div class="form-group">
+                                    <label for="input-dash-array">虚线设置</label>
+                                    <div class="input-group">
+                                        <input type="text" v-model="currentStyle.dashArray" class="form-control"
+                                            id="input-dash-array" aria-describedby="dashArray">
+                                        <div class="input-group-append">
+                                            <button @click="generateRandomDashArray()" class="btn btn-outline-secondary"
+                                                type="button">随机</button>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted">
+                                        It's a sequence of visible/invisible intervals.
+                                    </small>
+                                </div>
+                            </div>
+                            <!-- Line cap -->
+                            <div class="col-6">
+                                <label for="input-linecap">帽形状线</label>
+                                <select id="input-linecap" class="form-control" v-model="currentStyle.linecap">
+                                    <option v-for="option in options.linecap" v-bind:value="option">
+                                        {{ option }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Dash offset -->
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="input-stroke-width">虚线偏移值: {{ currentStyle.dashOffset }}</label>
+                                <input v-model="currentStyle.dashOffset" step="1" min="0" max="100" class="custom-range"
+                                    id="input-dash-offset" type="range">
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Border radius -->
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="input-border-radius">Border radius: {{ currentStyle.borderRadius }}</label>
+                                <input v-model="currentStyle.borderRadius" step="1" min="0" max="100"
+                                    class="custom-range" id="input-border-radius" type="range">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Generated Style -->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="block">
+                        <textarea readonly ref="codeInput" id="code" class="output mb-3">{{ output }}</textarea>
+                        <button ref="copyBtn" @click="copyCss" class="btn btn-outline-primary px-5 mx-auto">
+                            {{ isCopied ? 'Copied' : 'Copy' }}
                         </button>
                     </div>
                 </div>
             </div>
-            <!-- Settings -->
-            <div class="col-md-6">
-                <div class="block">
-                    <!-- Block size -->
-                    <div class="form-row">
-                        <div class="col-6">
-                            <label for="input-block-width">Width:</label>
-                            <input v-model="block.width" class="form-control" type="text" id="input-block-width">
-                        </div>
-                        <div class="col-6">
-                            <label for="input-block-height">Height:</label>
-                            <input v-model="block.height" class="form-control" type="text" id="input-block-height">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-12">
-
-                            <small class="form-text text-muted">
-                                Note: It doesn't impact on generated style.
-                            </small>
-                        </div>
-                    </div>
-                    <hr>
-                    <!-- Stroke width -->
-                    <div class="form-row">
-                        <div class="col-12">
-                            <label for="input-stroke-width">Stroke width: {{ currentStyle.width }}</label>
-                            <input v-model="currentStyle.width" step="1" min="1" max="25" class="custom-range"
-                                   id="input-stroke-width" type="range">
-                        </div>
-                    </div>
-                    <div class="form-row ">
-                        <!-- Dash Array -->
-                        <div class="col-6">
-                            <div class="form-inline"></div>
-                            <div class="form-group">
-                                <label for="input-dash-array">Dash Array</label>
-                                <div class="input-group">
-                                    <input type="text" v-model="currentStyle.dashArray" class="form-control"
-                                           id="input-dash-array" aria-describedby="dashArray">
-                                    <div class="input-group-append">
-                                        <button @click="generateRandomDashArray()" class="btn btn-outline-secondary" type="button">Random</button>
-                                    </div>
-                                </div>
-                                <small class="form-text text-muted">
-                                    It's a sequence of visible/invisible intervals.
-                                </small>
-                            </div>
-                        </div>
-                        <!-- Line cap -->
-                        <div class="col-6">
-                            <label for="input-linecap">Line Cap</label>
-                            <select id="input-linecap" class="form-control" v-model="currentStyle.linecap">
-                                <option v-for="option in options.linecap" v-bind:value="option">
-                                    {{ option }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Dash offset -->
-                    <div class="form-row">
-                        <div class="col-12">
-                            <label for="input-stroke-width">Dash offset: {{ currentStyle.dashOffset }}</label>
-                            <input v-model="currentStyle.dashOffset" step="1" min="0" max="100" class="custom-range"
-                                   id="input-dash-offset" type="range">
-                        </div>
-                    </div>
-                    <hr>
-                    <!-- Border radius -->
-                    <div class="form-row">
-                        <div class="col-12">
-                            <label for="input-border-radius">Border radius: {{ currentStyle.borderRadius }}</label>
-                            <input v-model="currentStyle.borderRadius" step="1" min="0" max="100" class="custom-range"
-                                   id="input-border-radius" type="range">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- Generated Style -->
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="block">
-                    <textarea readonly ref="codeInput" id="code" class="output mb-3">{{ output }}</textarea>
-                    <button ref="copyBtn" @click="copyCss" class="btn btn-outline-primary px-5 mx-auto">
-                        {{ isCopied ? 'Copied' : 'Copy' }}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr class="mt-5">
-    <div class="container">
-        <div class="row justify-content-md-center my-5">
-            <div class="col-12 col-md-8">
-                <h2>Usage</h2>
-                <p>
-                    Just copy the output and paste it into your CSS code. For example:
-                <pre class="block"><code class="css">.block {
+        <hr class="mt-5">
+        <div class="container">
+            <div class="row justify-content-md-center my-5">
+                <div class="col-12 col-md-8">
+                    <h2>使用</h2>
+                    <p>
+                        复制上面的输出并且粘贴到你的CSS代码里，如下举例：
+                    <pre class="block"><code class="css">.block {
    width: 100px;
    height: 100px;
    /* dashed border */
    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
 }</code></pre>
-                </p>
-                <h2 class="pt-3">How does it work?</h2>
-                <p>
-                    Native CSS properties <b>don't support</b> the customization of <mark>border-style</mark>.
-                    Therefore, we use a trick with an <b><i>SVG image inside</i></b> <mark>background-image</mark> property.
-                    The SVG features give us the ability to change the distance between dashed lines, set custom pattern, add dash offset or even change a line cap.
-                    Generated SVG image is vector and it fills width and height of elements by 100%, so it doesn't matter what size elements have.
-                </p>
+                    </p>
+                    <h2 class="pt-3">原理</h2>
+                    <p>
+                        原生CSS属性<b>不支持</b>自定义<mark>border-style</mark>。
+                        因此，我们使用了一个小技巧，把<b><i>SVG图片放置在</i></b> <mark>background-image</mark>属性中。
+                        SVG的特性让我们有能力修改虚线间隔距离，设置自定义图案，添加划线偏移，甚至更改线帽。
+                        生成的SVG图像是矢量图像，它100%填充元素的宽高，所以元素的大小无关紧要
+                    </p>
+                </div>
             </div>
         </div>
+        
+        <div class="dashang">
+            <a href="https://dun.mianbaoduo.com/@bean"> 打赏作者</a> | <a href="https://app.wehere.top?jump=true">领优惠券</a>
+        </div>
+        <div class="beian">
+            <a href="http://beian.miit.gov.cn/" target="_blank"> 豫ICP备17025106号</a> | <a>Copyright@2022 hi.life@qq.com</a>
+        </div>
     </div>
-</div>
-<!-- Github corner -->
-<a href="https://github.com/kovart/dashed-border-generator" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-<!-- VueJS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-<!-- Libraries -->
-<script src="vendor/vue-color.min.js"></script>
-<script src="vendor/mini-svg-data-uri.js"></script>
-<!-- App -->
-<script src="main.js"></script>
-<!-- Code highlight -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atom-one-light.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script></body>
+    <!-- Github corner -->
+    <style>
+        .github-corner:hover .octo-arm {
+            animation: octocat-wave 560ms ease-in-out
+        }
+
+        @keyframes octocat-wave {
+
+            0%,
+            100% {
+                transform: rotate(0)
+            }
+
+            20%,
+            60% {
+                transform: rotate(-25deg)
+            }
+
+            40%,
+            80% {
+                transform: rotate(10deg)
+            }
+        }
+
+        @media (max-width:500px) {
+            .github-corner:hover .octo-arm {
+                animation: none
+            }
+
+            .github-corner .octo-arm {
+                animation: octocat-wave 560ms ease-in-out
+            }
+        }
+        .beian {
+            text-align: center; margin-top:20px;text-decoration: none;font-size: 14px;
+            color: #333;
+        }
+        .beian > a {
+            color: #333;
+        }
+        .dashang {
+            text-align: center; margin-top:20px;font-size: 15px;
+            color: #111;
+        }
+        .dashang > a {
+            color: #111; margin: 5px;
+        }
+    </style>
+    <!-- VueJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- Libraries -->
+    <script src="vendor/vue-color.min.js"></script>
+    <script src="vendor/mini-svg-data-uri.js"></script>
+    <!-- App -->
+    <script src="main.js"></script>
+    <!-- Code highlight -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
 </html>
